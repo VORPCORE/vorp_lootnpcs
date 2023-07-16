@@ -14,7 +14,6 @@ RegisterServerEvent('npcloot:give_reward', function(data)
     end
 
     local _source = source
-    local chance = math.random(1, Config.ChaceGettingWeapon)
     local User = VORPcore.getUser(_source)
 
     if not User then
@@ -26,7 +25,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
     if not Config.canreceiveWeapons then
         goto continue
     end
-
+    local chance = math.random(1, Config.ChaceGettingWeapon)
     if chance < Config.receiveWeapon then
         local ammo = { ["nothing"] = 0 }
         local reward1 = Config.weapons
@@ -47,8 +46,8 @@ RegisterServerEvent('npcloot:give_reward', function(data)
     if not Config.canreceiveMoney then
         goto continue1
     end
-
-    if chance < Config.receiveMoney then
+    local chance1 = math.random(1, Config.ChanceGettingMoney)
+    if chance1 < Config.receiveMoney then
         local item_type = math.random(1, #Config.money)
         Character.addCurrency(0, Config.money[item_type])
         VORPcore.NotifyRightTip(_source, "you got " .. string.format("%.2f", Config.money[item_type]) .. "$", 2000)
@@ -59,8 +58,8 @@ RegisterServerEvent('npcloot:give_reward', function(data)
     if not Config.canreceiveGold then
         goto continue2
     end
-
-    if chance < Config.receiveGold then
+    local chance2 = math.random(1, Config.ChanceGettingGold)
+    if chance2 < Config.receiveGold then
         local item_type = math.random(1, #Config.gold)
         Character.addCurrency(1, Config.gold[item_type])
         VORPcore.NotifyRightTip(_source, "you got " .. Config.gold[item_type] .. " nugget.", 2000)
@@ -72,22 +71,22 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         return
     end
 
-
-    if chance < Config.receiveItem then
-        local chance2 = math.random(1, #Config.items)
+    local chance3 = math.random(1, Config.ChanceGettingItem)
+    if chance3 < Config.receiveItem then
+        local chance4 = math.random(1, #Config.items)
         local count = 1
         local canCarry = Inventory.canCarryItems(_source, count)                             --can carry inv space
-        local canCarry2 = Inventory.canCarryItem(_source, Config.items[chance2].name, count) --cancarry item limit
+        local canCarry2 = Inventory.canCarryItem(_source, Config.items[chance4].name, count) --cancarry item limit
 
         if not canCarry then
-            return VORPcore.NotifyRightTip(_source, "You can't carry any more " .. Config.items[chance2].label, 30000)
+            return VORPcore.NotifyRightTip(_source, "You can't carry any more " .. Config.items[chance4].label, 30000)
         end
 
         if not canCarry2 then
-            return VORPcore.NotifyRightTip(_source, "You can't carry any more " .. Config.items[chance2].label, 30000)
+            return VORPcore.NotifyRightTip(_source, "You can't carry any more " .. Config.items[chance4].label, 30000)
         end
 
-        Inventory.addItem(_source, Config.items[chance2].name, count)
-        VORPcore.NotifyRightTip(_source, "You got " .. Config.items[chance2].label, 3000)
+        Inventory.addItem(_source, Config.items[chance4].name, count)
+        VORPcore.NotifyRightTip(_source, "You got " .. Config.items[chance4].label, 3000)
     end
 end)
