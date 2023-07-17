@@ -1,44 +1,41 @@
 Config = {}
 
---name of items like in the DB
------------------------- ITEMS -----------------------------------
-Config.canreceiveItems = false
-Config.receiveItem = 20                                                          -- percentage out of 100
-Config.ChanceGettingItem = 100                                                   -- 1 percentage out of 100
-Config.items = {
-    { name = "Water",              label = "Water",                amount = 1 }, --you get a random item from the list
-    { name = "ammorepeaternormal", label = "amoo repeater normal", amount = 1 },
-    { name = "ammoriflenormal",    label = "ammorifle normal",     amount = 1 },
-    -- add more
+-- Enable or disable the chance to receive ITEMS
+Config.canReceiveItems = false -- true | false
+Config.receiveItem = 20        -- If below this number, then can receive
+Config.chanceGettingItem = 100 -- Percentage out of 100
+Config.items = {               -- You will receive a random item from the list
+    { name = "Water",              label = "Water",                amount = 1 },
+    { name = "ammorepeaternormal", label = "Normal Ammo Repeater", amount = 1 },
+    { name = "ammoriflenormal",    label = "Normal Ammo Rifle",    amount = 1 },
 }
 
+-- Enable or disable the chance to receive MONEY
+Config.canReceiveMoney = false  -- true | false
+Config.receiveMoney = 50        -- If below this number, then can receive
+Config.chanceGettingMoney = 100 -- Percentage out of 100
+Config.money = { 0.5, 1, 1.5 }  -- You will receive a random value from the list
 
------------------------- MONEY -----------------------------------
-Config.canreceiveMoney = false
-Config.receiveMoney = 50        -- if bellow this number then can receive
-Config.ChanceGettingMoney = 100 -- 1 percentage out of 100
-Config.money = {
-    0.5,
-    1,
-    1.5
-} -- random amount from the list add more if needed
+-- Enable or disable the chance to receive GOLD
+Config.canReceiveGold = false -- true | false
+Config.receiveGold = 5        -- If below this number, then can receive
+Config.chanceGettingGold = 10 -- Percentage out of 100
+Config.gold = { 1, 2, 3 }     -- You will receive a random value from the list
 
------------------------- GOLD -----------------------------------
-Config.canreceiveGold = false
-Config.receiveGold = 5        -- -- if bellow this number then can receive
-Config.ChanceGettingGold = 10 -- 1 percentage out of 100
-Config.gold = {
-    1,
-    2,
-    3,
+-- Enable or disable the chance to receive WEAPONS
+Config.canReceiveWeapons = true  -- true | false
+Config.receiveWeapon = 10        -- If below this number, then can receive
+Config.chanceGettingWeapon = 100 -- Percentage out of 100
+Config.weapons = {               -- You will receive a random weapon from the list
+    { name = "WEAPON_REVOLVER_CATTLEMAN", label = "Cattleman Revolver" },
+    { name = "WEAPON_REPEATER_CARBINE",   label = "Carbine Repeater" },
+    { name = "WEAPON_RIFLE_VARMINT",      label = "Varmint Rifle" }
 }
 
------------------------ WEAPONS --------------------------------------
-Config.canreceiveWeapons = true
-Config.receiveWeapon = 10                                                 -- if bellow this number then can receive
-Config.ChaceGettingWeapon = 100                                           -- 1 percentage out of 100
-Config.weapons = {
-    { name = "WEAPON_REVOLVER_CATTLEMAN", label = "Revolver cattleman" }, --you get a random weapon from the list
-    { name = "WEAPON_REPEATER_CARBINE",   label = "Repeater Carbine" },
-    { name = "WEAPON_RIFLE_VARMINT",      label = "Rifle Varmint" }
+-- Translations
+Config.Translate = {
+    invFullWeapon = "You can't carry any more WEAPONS",
+    invFullItems = "You can't carry any more ITEMS",
+    youGot = "You got",
+    nugget = "nugget"
 }
