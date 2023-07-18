@@ -22,8 +22,8 @@ RegisterServerEvent('npcloot:give_reward', function(data)
 
     local Character = User.getUsedCharacter
 
-    if Config.canreceiveWeapons then
-        local chance = math.random(1, Config.ChaceGettingWeapon)
+    if Config.canReceiveWeapons then
+        local chance = math.random(1, Config.chanceGettingWeapon)
         if chance < Config.receiveWeapon then
             local ammo = { ["nothing"] = 0 }
             local reward1 = Config.weapons
@@ -40,8 +40,8 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         end
     end
 
-    if Config.canreceiveMoney then
-        local chance1 = math.random(1, Config.ChanceGettingMoney)
+    if Config.canReceiveMoney then
+        local chance1 = math.random(1, Config.chanceGettingMoney)
         if chance1 < Config.receiveMoney then
             local item_type = math.random(1, #Config.money)
             Character.addCurrency(0, Config.money[item_type])
@@ -50,8 +50,8 @@ RegisterServerEvent('npcloot:give_reward', function(data)
     end
 
 
-    if Config.canreceiveGold then
-        local chance2 = math.random(1, Config.ChanceGettingGold)
+    if Config.canReceiveGold then
+        local chance2 = math.random(1, Config.chanceGettingGold)
         if chance2 < Config.receiveGold then
             local item_type = math.random(1, #Config.gold)
             Character.addCurrency(1, Config.gold[item_type])
@@ -59,8 +59,8 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         end
     end
 
-    if Config.canreceiveItems then
-        local chance3 = math.random(1, Config.ChanceGettingItem)
+    if Config.canReceiveItems then
+        local chance3 = math.random(1, Config.chanceGettingItem)
         if chance3 < Config.receiveItem then
             local chance4 = math.random(1, #Config.items)
             local count = 1
