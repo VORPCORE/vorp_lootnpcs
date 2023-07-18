@@ -2,7 +2,7 @@
 --THREAD
 Citizen.CreateThread(function()
     while true do
-        local sleep = 300
+        local sleep = 0
         local size = GetNumberOfEvents(0)
         if size > 0 then
             for i = 0, size - 1 do
