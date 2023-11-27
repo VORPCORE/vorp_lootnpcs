@@ -29,14 +29,24 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             local reward1 = Config.weapons
             local chance1 = math.random(1, #reward1)
 
-            Inventory.canCarryWeapons(_source, 1, function(cb)
+            Inventory.canCarryWeapons(source, 1, function(cb)
                 if not cb then
-                    return VORPcore.NotifyRightTip(_source, "You can't carry any more WEAPONS", 3000)
+                    return VORPcore.NotifyRightTip(source, Config.Translate.invFullWeapon, 3000)
                 end
             end)
 
-            Inventory.createWeapon(_source, Config.weapons[chance1].name, ammo, {})
-            VORPcore.NotifyRightTip(_source, "You got " .. Config.weapons[chance1].label, 3000)
+            Inventory.createWeapon(source, Config.weapons[chance1].name, ammo, {})
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.youGot .. Config.weapons[chance1].label, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, "" ..Config.Translate.youGot.. "" ..Config.weapons[chance1].label.. "", "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
+            end
+        else -- info on finding nothing
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.noWeapon, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, "" ..Config.Translate.noWeapon.. "", "BLIPS", "blip_destroy", 3000, "COLOR_RED")
+            end
         end
     end
 
@@ -45,7 +55,17 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         if chance1 < Config.receiveMoney then
             local item_type = math.random(1, #Config.money)
             Character.addCurrency(0, Config.money[item_type])
-            VORPcore.NotifyRightTip(_source, "you got " .. string.format("%.2f", Config.money[item_type]) .. "$", 2000)
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.youGot .. string.format("%.2f", Config.money[item_type]) .. Config.Translate.currency, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, Config.Translate.youGot .. string.format("%.2f", Config.money[item_type]) .. Config.Translate.currency, "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
+            end
+        else -- info on finding nothing
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.noMoney, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, "" ..Config.Translate.noMoney.. "", "BLIPS", "blip_destroy", 3000, "COLOR_RED")
+            end
         end
     end
 
@@ -55,7 +75,17 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         if chance2 < Config.receiveGold then
             local item_type = math.random(1, #Config.gold)
             Character.addCurrency(1, Config.gold[item_type])
-            VORPcore.NotifyRightTip(_source, "you got " .. Config.gold[item_type] .. " nugget.", 2000)
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.youGot .. Config.gold[item_type] .. Config.Translate.nugget, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, Config.Translate.youGot .. Config.gold[item_type] .. Config.Translate.nugget, "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
+            end
+        else -- info on finding nothing
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.noGold, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, "" ..Config.Translate.noGold.. "", "BLIPS", "blip_destroy", 3000, "COLOR_RED")
+            end
         end
     end
 
@@ -64,19 +94,30 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         if chance3 < Config.receiveItem then
             local chance4 = math.random(1, #Config.items)
             local count = 1
-            local canCarry = Inventory.canCarryItems(_source, count)                             --can carry inv space
-            local canCarry2 = Inventory.canCarryItem(_source, Config.items[chance4].name, count) --cancarry item limit
+            local canCarry = Inventory.canCarryItems(source, count)                             --can carry inv space
+            local canCarry2 = Inventory.canCarryItem(source, Config.items[chance4].name, count) --cancarry item limit
 
             if not canCarry then
-                return VORPcore.NotifyRightTip(_source, "You can't carry any more " .. Config.items[chance4].label, 30000)
+                return VORPcore.NotifyRightTip(source, Config.Translate.invFullItems, 30000)
             end
 
             if not canCarry2 then
-                return VORPcore.NotifyRightTip(_source, "You can't carry any more " .. Config.items[chance4].label, 30000)
+                return VORPcore.NotifyRightTip(source, Config.Translate.ItemsFull .. Config.items[chance4].label, 30000)
             end
 
             Inventory.addItem(_source, Config.items[chance4].name, count)
-            VORPcore.NotifyRightTip(_source, "You got " .. Config.items[chance4].label, 3000)
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.youGot .. Config.items[chance4].label, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, Config.Translate.youGot .. Config.items[chance4].label, "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
+            end
+
+        else -- info on finding nothing
+            if Config.useNotifyRight == true then
+                VORPcore.NotifyRightTip(source, Config.Translate.noItem, 3000)
+            else
+                VORPcore.NotifyLeft(source, Config.Translate.notifytitle, "" ..Config.Translate.noItem.. "", "BLIPS", "blip_destroy", 3000, "COLOR_RED")
+            end
         end
     end
 end)
