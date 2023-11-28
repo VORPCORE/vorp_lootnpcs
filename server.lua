@@ -10,16 +10,16 @@ local Inventory = exports.vorp_inventory:vorp_inventoryApi()
 
 RegisterServerEvent('npcloot:give_reward', function(data)
     local __source = source
-    local User = VORPcore.getUser(_source)
-    local Character = User.getUsedCharacter
-
+    
     if data ~= 1 then -- change this number acording to  your client side  cheaters can see this so do a new number and in client as well on this event they must match
         return print("cheater detected Id:", _source, GetPlayerName(_source), GetPlayerIdentifiers(_source))
     end
-
+        
+    local User = VORPcore.getUser(_source)
     if not User then
         return
     end
+    local Character = User.getUsedCharacter
 
     if Config.canReceiveWeapons then
         local chance = math.random(1, Config.chanceGettingWeapon)
