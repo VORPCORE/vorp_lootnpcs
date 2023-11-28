@@ -1,13 +1,15 @@
 Config = {}
 
+Config.useNotifyRight = false --Choose whether information is displayed on the right as standard ("true") or on the left in a modern look ("false")
+
 -- Enable or disable the chance to receive ITEMS
-Config.canReceiveItems = false -- true | false
-Config.receiveItem = 20        -- If below this number, then can receive
+Config.canReceiveItems = true -- true | false
+Config.receiveItem = 35        -- If below this number, then can receive
 Config.chanceGettingItem = 100 -- Percentage out of 100
 Config.items = {               -- You will receive a random item from the list
-    { name = "Water",              label = "Water",                amount = 1 },
-    { name = "ammorepeaternormal", label = "Normal Ammo Repeater", amount = 1 },
-    { name = "ammoriflenormal",    label = "Normal Ammo Rifle",    amount = 1 },
+{ name = "water",              label = "Water",                amount = 1 },
+{ name = "ammorepeaternormal", label = "Normal Ammo Repeater", amount = 1 },
+{ name = "ammoriflenormal",    label = "Normal Ammo Rifle",    amount = 1 },
 }
 
 -- Enable or disable the chance to receive MONEY
@@ -23,7 +25,7 @@ Config.chanceGettingGold = 10 -- Percentage out of 100
 Config.gold = { 1, 2, 3 }     -- You will receive a random value from the list
 
 -- Enable or disable the chance to receive WEAPONS
-Config.canReceiveWeapons = true  -- true | false
+Config.canReceiveWeapons = false  -- true | false
 Config.receiveWeapon = 10        -- If below this number, then can receive
 Config.chanceGettingWeapon = 100 -- Percentage out of 100
 Config.weapons = {               -- You will receive a random weapon from the list
@@ -34,8 +36,15 @@ Config.weapons = {               -- You will receive a random weapon from the li
 
 -- Translations
 Config.Translate = {
-    invFullWeapon = "You can't carry any more WEAPONS",
-    invFullItems = "You can't carry any more ITEMS",
-    youGot = "You got",
-    nugget = "nugget"
+    invFullWeapon = "You can't carry any more WEAPONS.",
+    invFullItems = "You can't carry any more ITEMS.",
+    ItemsFull = "You can't carry more ",
+    noGold = "This person had Gold on him.",
+    noMoney = "This person had Money on him.",
+    noWeapon = "This person had Weapon on him.",
+    noItem = "This person had Items on him.",
+    youGot = "You got ",
+    nugget = " nugget.",
+    currency = " $.",
+    notifytitle = "Loot"
 }
