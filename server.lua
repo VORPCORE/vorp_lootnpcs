@@ -9,7 +9,7 @@ local Inventory = exports.vorp_inventory:vorp_inventoryApi()
 
 
 RegisterServerEvent('npcloot:give_reward', function(data)
-    local __source = source
+    local _source = source
     local User = VORPcore.getUser(_source)
     local Character = User.getUsedCharacter
 
