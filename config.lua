@@ -4,16 +4,16 @@ Config.useNotifyRight = false --Choose whether information is displayed on the r
 
 -- Enable or disable the chance to receive ITEMS
 Config.canReceiveItems = true -- true | false
-Config.receiveItem = 20        -- If below this number, then can receive
+Config.receiveItem = 35        -- If below this number, then can receive
 Config.chanceGettingItem = 100 -- Percentage out of 100
 Config.items = {               -- You will receive a random item from the list
-    { name = "water",              label = "Water",                amount = 1 },
-    { name = "ammorepeaternormal", label = "Normal Ammo Repeater", amount = 1 },
-    { name = "ammoriflenormal",    label = "Normal Ammo Rifle",    amount = 1 },
+{ name = "water",              label = "Water",                amount = 1 },
+{ name = "ammorepeaternormal", label = "Normal Ammo Repeater", amount = 1 },
+{ name = "ammoriflenormal",    label = "Normal Ammo Rifle",    amount = 1 },
 }
 
 -- Enable or disable the chance to receive MONEY
-Config.canReceiveMoney = true  -- true | false
+Config.canReceiveMoney = false  -- true | false
 Config.receiveMoney = 50        -- If below this number, then can receive
 Config.chanceGettingMoney = 100 -- Percentage out of 100
 Config.money = { 0.5, 1, 1.5 }  -- You will receive a random value from the list
