@@ -1,4 +1,7 @@
 ---@diagnostic disable: undefined-global
+
+local T = Translation.Langs[Lang]
+
 --THREAD
 Citizen.CreateThread(function()
     while true do
