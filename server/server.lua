@@ -1,12 +1,14 @@
 ---@diagnostic disable: undefined-global
 
 local VORPcore = {}
+
+local T = Translation.Langs[Lang]
+
 TriggerEvent("getCore", function(core)
     VORPcore = core
 end)
 
 local Inventory = exports.vorp_inventory:vorp_inventoryApi()
-
 
 RegisterServerEvent('npcloot:give_reward', function(data)
     local _source = source
