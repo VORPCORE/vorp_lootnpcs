@@ -37,14 +37,14 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             end)
 
             Inventory.createWeapon(_source, Config.weapons[chance1].name, ammo, {})
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.youGot .. Config.weapons[chance1].label, 3000)
             else
                 VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.youGot .. "" .. Config.weapons[chance1].label .. "",
                     "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
         else -- info on finding nothing
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.noWeapon, 3000)
             else
                 VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noWeapon .. "", "BLIPS", "blip_destroy", 3000,
@@ -58,7 +58,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         if chance1 < Config.receiveMoney then
             local item_type = math.random(1, #Config.money)
             Character.addCurrency(0, Config.money[item_type])
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.youGot .. string.format("%.2f", Config.money[item_type]) .. T
                     .currency, 3000)
             else
@@ -67,7 +67,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
                     "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
         else -- info on finding nothing
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.noMoney, 3000)
             else
                 VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noMoney .. "", "BLIPS", "blip_destroy", 3000,
@@ -82,7 +82,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         if chance2 < Config.receiveGold then
             local item_type = math.random(1, #Config.gold)
             Character.addCurrency(1, Config.gold[item_type])
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source,
                     T.youGot .. Config.gold[item_type] .. T.nugget, 3000)
             else
@@ -90,7 +90,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
                     "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
         else -- info on finding nothing
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.noGold, 3000)
             else
                 VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noGold .. "", "BLIPS", "blip_destroy", 3000,
@@ -116,14 +116,14 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             end
 
             Inventory.addItem(_source, Config.items[chance4].name, count)
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.youGot .. Config.items[chance4].label, 3000)
             else
                 VORPcore.NotifyLeft(_source, T.notifytitle,
                     T.youGot .. Config.items[chance4].label, "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
         else -- info on finding nothing
-            if Config.useNotifyRight == true then
+            if Config.useNotifyRight then
                 VORPcore.NotifyRightTip(_source, T.noItem, 3000)
             else
                 VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noItem .. "", "BLIPS", "blip_destroy", 3000,
