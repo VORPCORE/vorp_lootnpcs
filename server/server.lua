@@ -115,7 +115,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
                 return VORPcore.NotifyRightTip(_source, T.ItemsFull .. Config.items[chance4].label, 30000)
             end
 
-            Inventory.addItem(__source, Config.items[chance4].name, count)
+            Inventory.addItem(_source, Config.items[chance4].name, count)
             if Config.useNotifyRight == true then
                 VORPcore.NotifyRightTip(_source, T.youGot .. Config.items[chance4].label, 3000)
             else
