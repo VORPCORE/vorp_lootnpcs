@@ -7,13 +7,14 @@ lua54 'yes'
 description 'A npc looting script for vorp core framework'
 repository 'https://github.com/VORPCORE/vorp_lootnpcs'
 
-exports {
-    'DataViewNativeGetEventData2'
-}
+export 'DataViewNativeGetEventData2'
+
 
 client_scripts {
+    '@vorp_core/client/dataview.lua',
     'client/client.lua',
     'client/client.js'
+
 }
 
 shared_script {
@@ -25,10 +26,7 @@ server_script {
     'server/server.lua'
 }
 
-dependencies {
-    'vorp_core',
-    'vorp_inventory'
-}
+dependency 'vorp_core'
 
 version '1.3'
 vorp_checker 'yes'

@@ -1,14 +1,5 @@
----@diagnostic disable: undefined-global
-
-local VORPcore = {}
-
+local Core = exports.vorp_core:GetCore()
 local T = Translation.Langs[Lang]
-
-TriggerEvent("getCore", function(core)
-    VORPcore = core
-end)
-
-local Inventory = exports.vorp_inventory:vorp_inventoryApi()
 
 RegisterServerEvent('npcloot:give_reward', function(data)
     local _source = source
@@ -17,10 +8,11 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         return print("cheater detected Id:", _source, GetPlayerName(_source), GetPlayerIdentifiers(_source))
     end
 
-    local User = VORPcore.getUser(_source)
+    local User = Core.getUser(_source)
     if not User then
         return
     end
+
     local Character = User.getUsedCharacter
 
     if Config.canReceiveWeapons then
@@ -29,25 +21,22 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             local ammo = { ["nothing"] = 0 }
             local reward1 = Config.weapons
             local chance1 = math.random(1, #reward1)
-
-            Inventory.canCarryWeapons(_source, 1, function(cb)
-                if not cb then
-                    return VORPcore.NotifyRightTip(_source, T.invFullWeapon, 3000)
-                end
-            end)
-
-            Inventory.createWeapon(_source, Config.weapons[chance1].name, ammo, {})
+            local canCarryWeapons = exports.vorp_inventory:canCarryWeapons(_source, 1, nil, Config.weapons[chance1].name)
+            if not canCarryWeapons then
+                return Core.NotifyRightTip(_source, T.invFullWeapon, 3000)
+            end
+            exports.vorp_inventory:registerWeapon(_source, Config.weapons[chance1].name, ammo, {})
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.youGot .. Config.weapons[chance1].label, 3000)
+                Core.NotifyRightTip(_source, T.youGot .. Config.weapons[chance1].label, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.youGot .. "" .. Config.weapons[chance1].label .. "",
+                Core.NotifyLeft(_source, T.notifytitle, "" .. T.youGot .. "" .. Config.weapons[chance1].label .. "",
                     "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
         else -- info on finding nothing
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.noWeapon, 3000)
+                Core.NotifyRightTip(_source, T.noWeapon, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noWeapon .. "", "BLIPS", "blip_destroy", 3000,
+                Core.NotifyLeft(_source, T.notifytitle, "" .. T.noWeapon .. "", "BLIPS", "blip_destroy", 3000,
                     "COLOR_RED")
             end
         end
@@ -59,18 +48,18 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             local item_type = math.random(1, #Config.money)
             Character.addCurrency(0, Config.money[item_type])
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.youGot .. string.format("%.2f", Config.money[item_type]) .. T
+                Core.NotifyRightTip(_source, T.youGot .. string.format("%.2f", Config.money[item_type]) .. T
                     .currency, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle,
+                Core.NotifyLeft(_source, T.notifytitle,
                     T.youGot .. string.format("%.2f", Config.money[item_type]) .. T.currency, "BLIPS",
                     "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
         else -- info on finding nothing
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.noMoney, 3000)
+                Core.NotifyRightTip(_source, T.noMoney, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noMoney .. "", "BLIPS", "blip_destroy", 3000,
+                Core.NotifyLeft(_source, T.notifytitle, "" .. T.noMoney .. "", "BLIPS", "blip_destroy", 3000,
                     "COLOR_RED")
             end
         end
@@ -83,17 +72,17 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             local item_type = math.random(1, #Config.gold)
             Character.addCurrency(1, Config.gold[item_type])
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source,
+                Core.NotifyRightTip(_source,
                     T.youGot .. Config.gold[item_type] .. T.nugget, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle, T.youGot .. Config.gold[item_type] .. T.nugget, "BLIPS",
+                Core.NotifyLeft(_source, T.notifytitle, T.youGot .. Config.gold[item_type] .. T.nugget, "BLIPS",
                     "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
-        else -- info on finding nothing
+        else
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.noGold, 3000)
+                Core.NotifyRightTip(_source, T.noGold, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noGold .. "", "BLIPS", "blip_destroy", 3000,
+                Core.NotifyLeft(_source, T.notifytitle, "" .. T.noGold .. "", "BLIPS", "blip_destroy", 3000,
                     "COLOR_RED")
             end
         end
@@ -104,29 +93,24 @@ RegisterServerEvent('npcloot:give_reward', function(data)
         if chance3 < Config.receiveItem then
             local chance4 = math.random(1, #Config.items)
             local count = 1
-            local canCarry = Inventory.canCarryItems(_source, count)                             --can carry inv space
-            local canCarry2 = Inventory.canCarryItem(_source, Config.items[chance4].name, count) --cancarry item limit
-
-            if not canCarry then
-                return VORPcore.NotifyRightTip(_source, T.invFullItems, 30000)
+            local canCarryInv = exports.vorp_inventory:canCarryItem(_source, Config.items[chance4].name, count)
+            if not canCarryInv then
+                return print("cant carry")
             end
 
-            if not canCarry2 then
-                return VORPcore.NotifyRightTip(_source, T.ItemsFull .. Config.items[chance4].label, 30000)
-            end
+            exports.vorp_inventory:addItem(_source, Config.items[chance4].name, count)
 
-            Inventory.addItem(_source, Config.items[chance4].name, count)
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.youGot .. Config.items[chance4].label, 3000)
+                Core.NotifyRightTip(_source, T.youGot .. Config.items[chance4].label, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle,
-                    T.youGot .. Config.items[chance4].label, "BLIPS", "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
+                Core.NotifyLeft(_source, T.notifytitle, T.youGot .. Config.items[chance4].label, "BLIPS",
+                    "blip_ambient_bounty_target", 3000, "COLOR_GREEN")
             end
-        else -- info on finding nothing
+        else
             if Config.useNotifyRight then
-                VORPcore.NotifyRightTip(_source, T.noItem, 3000)
+                Core.NotifyRightTip(_source, T.noItem, 3000)
             else
-                VORPcore.NotifyLeft(_source, T.notifytitle, "" .. T.noItem .. "", "BLIPS", "blip_destroy", 3000,
+                Core.NotifyLeft(_source, T.notifytitle, "" .. T.noItem .. "", "BLIPS", "blip_destroy", 3000,
                     "COLOR_RED")
             end
         end
