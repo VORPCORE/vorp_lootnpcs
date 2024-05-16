@@ -25,7 +25,7 @@ RegisterServerEvent('npcloot:give_reward', function(data)
             if not canCarryWeapons then
                 return Core.NotifyRightTip(_source, T.invFullWeapon, 3000)
             end
-            exports.vorp_inventory:registerWeapon(_source, Config.weapons[chance1].name, ammo, {})
+            exports.vorp_inventory:createWeapon(_source, Config.weapons[chance1].name, ammo, {})
             if Config.useNotifyRight then
                 Core.NotifyRightTip(_source, T.youGot .. Config.weapons[chance1].label, 3000)
             else
