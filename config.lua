@@ -3,6 +3,9 @@ Config = {}
 -- Language setting - English | Portuguese_PT | Portuguese_BR | French | German | Spanish
 Lang = "English"
 
+-- NPC Looting Settings
+Config.timeout = 5 -- default is 5 minutes, Time in milliseconds for how long this NPC/netid can be looted
+
 -- Notification display settings
 Config.useNotifyRight = false -- Set to 'true' for displaying notifications on the right (standard); 'false' for left side display (modern look)
 
