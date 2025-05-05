@@ -15,7 +15,7 @@ CreateThread(function()
                     eventStruct:SetInt32(0, 0)
                     eventStruct:SetInt32(8, 0)
                     eventStruct:SetInt32(16, 0)
-                    local view = Citizen.invokeNative(0x57EC5FA4D4D6AFCA, 0, i, eventStruct:Buffer(), 3, Citizen.returnResultAnyway());
+                    local view = Citizen.invokeNative(0x57EC5FA4D4D6AFCA, 0, i, eventStruct:Buffer(), 3);
                     local entity = view[2]
                     if not GetPedAnimalType(entity) then
                         local eventDataSize = 3
