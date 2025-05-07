@@ -14,7 +14,7 @@ RegisterServerEvent('npcloot:give_reward', function(netid)
         return print("entity does not exist with netid possible cheat? player: " .. GetPlayerName(_source) .. " ID: " .. _source)
     end
 
-    local playerCoords <const> = GetEntityCoords(PlayerPedId())
+    local playerCoords <const> = GetEntityCoords(GetPlayerPed(_source))
     local entityCoords <const> = GetEntityCoords(entity)
     if #(playerCoords - entityCoords) > 5.0 then
         return print("player is too far away from the entity possible cheat? player: " .. GetPlayerName(_source) .. " ID: " .. _source)
